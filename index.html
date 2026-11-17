@@ -1,1 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如何成為小丑｜遊戲介紹</title>
+<style>
+:root {
+      --ink: #39343e;
+      --muted: #d9d5dc;
+      --paper: #fbfaf9;
+      --lavender: #eeebf0;
+      --line: #aaa4ae;
+      --header-height: 66px;
+}
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+      letter-spacing: .04em;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* 固定在最上方的導覽列 */
+    .site-header {
+      height: var(--header-height);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(18px, 4vw, 48px);
+      background: rgba(251, 250, 249, .96);
+      border-bottom: 1px solid #d4d0d6;
+      backdrop-filter: blur(10px);
+    }
+    .logo {
+      width: 104px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #77717b;
+      font-size: 18px;
+      letter-spacing: .08em;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .nav a {
+      padding: 7px 18px;
+      font-size: 15px;
+      border-right: 1px solid #c9c4cc;
+      transition: color .2s;
+    }
+    .nav a:last-child { border-right: 0; }
+    .nav a:hover { color: #9a849f; }
+
+    .hero {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 54px 20px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% -5%, transparent 0 43%, rgba(195,188,203,.48) 43.3% 47%, transparent 47.3%),
+        linear-gradient(110deg, transparent 0 11%, rgba(201,194,209,.45) 11.2% 17%, transparent 17.2% 82%, rgba(201,194,209,.45) 82.2% 88%, transparent 88.2%),
+        #e9e5ec;
+    }
+    .hero::before, .hero::after {
+      content: "✦";
+      position: absolute;
+      top: 24px;
+      color: #77707e;
+      font-size: 22px;
+    }
+    .hero::before { left: calc(50% - 115px); }
+    .hero::after { right: calc(50% - 115px); }
+    .hero-content { position: relative; z-index: 1; }
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 12px;
+      color: #77717b;
+    }
+    .ornament::before, .ornament::after {
+      content: "";
+      width: 70px;
+      border-top: 1px solid #8e8792;
+    }
+    h1 { margin: 0 0 12px; font-size: clamp(32px, 5vw, 48px); letter-spacing: .12em; }
+    .hero p { margin: 0 0 24px; font-size: 19px; }
+    .outline-button {
+      display: inline-block;
+      border: 1px solid #625c66;
+      padding: 10px 32px;
+      background: rgba(255,255,255,.28);
+      font: inherit;
+      font-weight: bold;
+      transition: background .2s, transform .2s;
+    }
+    .outline-button:hover { background: #fff; transform: translateY(-2px); }
+
+    section { padding: 30px clamp(20px, 5vw, 64px); scroll-margin-top: var(--header-height); }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin: 0 0 28px;
+      text-align: center;
+      font-size: 27px;
+      letter-spacing: .12em;
+    }
+    .section-title::before, .section-title::after {
+      content: "";
+      width: min(18vw, 155px);
+      border-top: 1px solid #8f8993;
+      position: relative;
+    }
+    .section-title::before { box-shadow: 0 3px 0 -2px #8f8993; }
+    .intro-grid {
+      max-width: 1120px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1.08fr;
+      gap: 54px;
+      align-items: center;
+    }
+    .placeholder {
+      background:
+        linear-gradient(26deg, transparent calc(50% - .6px), #c6c1ca 50%, transparent calc(50% + .6px)),
+        linear-gradient(154deg, transparent calc(50% - .6px), #c6c1ca 50%, transparent calc(50% + .6px)),
+        #e2dee6;
+      border: 1px solid #aaa4ae;
+      min-height: 170px;
+    }
+    .placeholder.wide { min-height: 210px; }
+    .placeholder.small { min-height: 90px; }
+    .placeholder.tall { min-height: 250px; }
+    .bars { display: grid; gap: 10px; margin: 0 0 24px; }
+    .bars span { display: block; height: 13px; background: #d9d4dd; }
+    .bars span:nth-child(3) { width: 62%; }
+    .bars span:nth-child(4) { width: 88%; }
+    .feature-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+    }
+    .feature { padding: 0 12px; border-right: 1px solid #aaa4ae; }
+    .feature:last-child { border: 0; }
+    .feature b { display: block; font-size: 25px; margin-bottom: 4px; }
+    .feature span { font-size: 14px; }
+
+    .story {
+      background: #eeebf0;
+      position: relative;
+      overflow: hidden;
+    }
+    .story-inner { max-width: 1120px; margin: auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+    .story-art {
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      font-size: 112px;
+      color: #c6bfce;
+      background: radial-gradient(ellipse at bottom, #d8d2de 0 35%, transparent 36%);
+    }
+    .gameplay-grid {
+      max-width: 1120px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .gameplay-card { padding: 0 28px; text-align: center; border-right: 1px solid #aaa4ae; }
+    .gameplay-card:first-child { padding-left: 0; }
+    .gameplay-card:last-child { border: 0; padding-right: 0; }
+    .gameplay-card h3 { font-size: 17px; margin: 12px 0; }
+    .gameplay-card .bars { width: 78%; margin: auto; gap: 7px; }
+    .gallery { background: #eeebf0; }
+    .gallery-grid {
+      max-width: 1120px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.35fr 1.35fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .video-placeholder { position: relative; }
+    .play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 48px; height: 48px; border-radius: 50%; border: 0;
+      background: #faf9fb; color: #37313b; font-size: 22px; cursor: pointer;
+    }
+    .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .thumbs .placeholder { min-height: 78px; }
+
+    .studio { background: #eeebf0; }
+    .studio-inner {
+      max-width: 1040px; margin: auto;
+      display: grid; grid-template-columns: 130px 1fr 1fr; gap: 28px; align-items: center;
+    }
+    .studio-logo { height: 112px; display: grid; place-items: center; background: #d9d5de; border: 1px solid #aaa4ae; font-size: 22px; }
+    .studio-copy { padding-right: 28px; border-right: 1px solid #aaa4ae; }
+    .studio-copy h3 { margin: 0 0 12px; font-size: 20px; }
+    .members { text-align: center; }
+    .member-dots { display: flex; justify-content: center; gap: 18px; margin-top: 15px; }
+    .member-dots span { width: 48px; height: 48px; border-radius: 50%; background: #d4d0d9; }
+
+    .contact { text-align: center; }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px; }
+    .contact-links a { font-size: 16px; }
+    .contact-links a:hover { color: #9a849f; }
+    footer { background: #39343e; color: #f6f3f7; text-align: center; padding: 22px 15px; font-size: 14px; }
+
+    @media (max-width: 720px) {
+      :root { --header-height: 58px; }
+      .site-header { padding: 0 12px; }
+      .logo { width: 72px; height: 32px; font-size: 14px; flex-shrink: 0; }
+      .nav { overflow-x: auto; white-space: nowrap; }
+      .nav a { font-size: 12px; padding: 8px 9px; }
+      .hero { min-height: 260px; }
+      .intro-grid, .story-inner, .gallery-grid { grid-template-columns: 1fr; gap: 24px; }
+      .placeholder.wide { min-height: 175px; }
+      .story-art { min-height: 120px; font-size: 76px; }
+      .gameplay-card { padding: 0 12px; }
+      .gameplay-card .placeholder { min-height: 70px; }
+      .gameplay-card h3 { font-size: 14px; }
+      .thumbs { gap: 8px; }
+      .thumbs .placeholder { min-height: 60px; }
+
+      .studio-inner { grid-template-columns: 90px 1fr; gap: 16px; }
+      .studio-logo { height: 90px; }
+      .studio-copy { border: 0; padding: 0; }
+      .members { grid-column: 1 / -1; padding-top: 10px; }
+      .member-dots span { width: 38px; height: 38px; }
+      .section-title { font-size: 22px; gap: 12px; }
+    }
+
+
+/* 角色圖片預留框 */
+.character-placeholder {
+  width: 100%;
+  height: 180px;
+  min-height: 180px;
+  margin-bottom: 12px;
+}
+
+
+/* ===== 角色介紹 ===== */
+#game-info .info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+#game-info .info-item {
+  min-width: 0;
+  width: auto;
+  text-align: center;
+  padding: 4px 12px;
+  border-right: 1px solid #aaa4ae;
+}
+
+#game-info .info-item:last-child {
+  border-right: 0;
+}
+
+#game-info .character-placeholder {
+  width: 100%;
+  height: 180px;
+  min-height: 180px;
+  margin-bottom: 12px;
+}
+
+#game-info .info-item h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+#game-info .info-item p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* 手機版兩個並排 */
+@media (max-width: 720px) {
+  #game-info .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #game-info .info-item:nth-child(2n) {
+    border-right: 0;
+  }
+}
+
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#home">LOGO</a>
+    <nav class="nav" aria-label="主要導覽">
+      <a href="#home">首頁</a>
+      <a href="#intro">遊戲介紹</a>
+      <a href="#story">故事背景</a>
+      <a href="#gameplay">遊戲玩法</a>
+      <a href="#contact">聯絡我們</a>
+    </nav>
+  </header>
+
+<main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="ornament">✦</div>
+        <h1>如何成為小丑</h1>
+        <p>一起，走進馬戲團吧</p>
+        <a class="outline-button" href="#gallery">觀看預告片　▶</a>
+      </div>
+    </section>
+
+<section id="intro">
+      <h2 class="section-title">遊戲介紹</h2>
+      <div class="intro-grid">
+        <div class="placeholder wide" role="img" aria-label="遊戲主視覺圖片預留位置"></div>
+        <div>
+          <div class="bars"><span></span><span></span><span></span></div>
+          <div class="feature-row">
+            <div class="feature"><b>✣</b><span>解謎冒險</span></div>
+            <div class="feature"><b>♟</b><span>多重結局</span></div>
+            <div class="feature"><b>★</b><span>可愛馬戲團風</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="story" id="story">
+      <h2 class="section-title">故事背景</h2>
+      <div class="story-inner">
+        <div class="bars"><span></span><span></span><span></span><span></span></div>
+        <div class="story-art" aria-hidden="true">♧</div>
+      </div>
+    </section>
+
+<section id="gameplay">
+      <h2 class="section-title">遊戲玩法</h2>
+      <div class="gameplay-grid">
+        <article class="gameplay-card">
+          <div class="placeholder small"></div>
+          <h3>解謎探索</h3>
+          <div class="bars"><span></span><span></span></div>
+        </article>
+        <article class="gameplay-card">
+          <div class="placeholder small"></div>
+          <h3>關卡挑戰</h3>
+          <div class="bars"><span></span><span></span></div>
+        </article>
+        <article class="gameplay-card">
+          <div class="placeholder small"></div>
+          <h3>機關互動</h3>
+          <div class="bars"><span></span><span></span></div>
+        </article>
+      </div>
+    </section>
+
+<section class="gallery" id="gallery">
+      <h2 class="section-title">遊戲展示</h2>
+      <div class="gallery-grid">
+        <div class="video-placeholder">
+          <div class="placeholder tall"></div>
+          <button class="play" type="button" aria-label="播放預告片">▶</button>
+        </div>
+        <div class="thumbs">
+          <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+          <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+        </div>
+      </div>
+    </section>
+
+
+<section id="game-info">
+  <h2 class="section-title">角色介紹</h2>
+
+  <!-- 這個容器很重要，四個角色都要放在裡面 -->
+  <div class="info-grid">
+
+  <div class="info-item">
+      <div class="placeholder character-placeholder"
+           role="img" aria-label="角色一圖片預留位置"></div>
+      <h3>角色一名稱</h3>
+      <p>在這裡輸入角色介紹文字。</p>
+    </div>
+
+  <div class="info-item">
+      <div class="placeholder character-placeholder"
+           role="img" aria-label="角色二圖片預留位置"></div>
+      <h3>角色二名稱</h3>
+      <p>在這裡輸入角色介紹文字。</p>
+    </div>
+
+<div class="info-item">
+      <div class="placeholder character-placeholder"
+           role="img" aria-label="角色三圖片預留位置"></div>
+      <h3>角色三名稱</h3>
+      <p>在這裡輸入角色介紹文字。</p>
+    </div>
+
+<div class="info-item">
+      <div class="placeholder character-placeholder"
+           role="img" aria-label="角色四圖片預留位置"></div>
+      <h3>角色四名稱</h3>
+      <p>在這裡輸入角色介紹文字。</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<section class="studio" id="studio">
+      <h2 class="section-title">關於工作室</h2>
+      <div class="studio-inner">
+        <div class="studio-logo">LOGO</div>
+        <div class="studio-copy">
+          <h3>工作室名稱</h3>
+          <div class="bars"><span></span><span></span><span></span></div>
+        </div>
+        <div class="members">
+          <div>團隊成員（可選）</div>
+          <div class="member-dots"><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+<section class="contact" id="contact">
+      <h2 class="section-title">聯絡我們</h2>
+      <div class="contact-links">
+        <a href="mailto:mail@example.com">✉　mail@example.com</a>
+        <a href="#" aria-label="Discord">● Discord</a>
+        <a href="#" aria-label="YouTube">▶ YouTube</a>
+        <a href="#" aria-label="Instagram">◎ Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 如何成為小丑　All rights reserved.</footer>
+</body>
+</html>
